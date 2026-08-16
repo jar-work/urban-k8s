@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cloudflared-config
+  namespace: cloudflare-tunnel
+data:
+  config.yaml: |
+    # Ruteo grueso: cloudflared solo reenvía todo a Traefik. El ruteo fino por
+    # hostname lo hace Traefik según el Ingress de cada app — no hace falta
+    # tocar este archivo al agregar apps nuevas.
+    ingress:
+      - service: http://traefik.kube-system.svc.cluster.local:80

@@ -1,0 +1,25 @@
+# CloudNativePG Operator
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudnative-pg
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://cloudnative-pg.io/charts
+      chart: cloudnative-pg
+      targetRevision: 0.29.0
+      helm:
+        valueFiles:
+          - $values/values/dev/cloudnative-pg.yaml
+    - repoURL: git@github.com:jar-work/urban-k8s.git
+      targetRevision: main
+      ref: values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cnpg-system
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true

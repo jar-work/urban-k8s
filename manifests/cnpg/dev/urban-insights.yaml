@@ -3,7 +3,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: postgres-dev
+  name: urban-insights
   namespace: cnpg-system
 spec:
   instances: 1
